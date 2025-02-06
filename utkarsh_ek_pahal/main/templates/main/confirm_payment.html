@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Payment{% endblock %}
+
+{% block content %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+    console.log("Razorpay Key:", "{{ razorpay_key_id }}");
+    console.log("Order ID:", "{{ order_id }}");
+    console.log("Amount (INR):", "{{ amount }}");
+    
+    const options = {
+        "key": "{{ razorpay_key_id }}",
+       // "amount": "{{ amount }}", 
+       "amount": parseInt("{{ amount }}") * 100, // Convert to paise
+        "currency": "INR",
+        "name": "Your Organization",
+        "description": "Donation",
+        "order_id": "{{ order_id }}",
+        "handler": function (response) {
+            console.log(response);
+            fetch("{% url 'payment_success' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature:response.razorpay_signature,
+                    donation_id: "{{ donation_id }}"
+                })
+            }).then(res => res.json()).then(data => {
+                if (data.status === "success") {
+                    alert("Thank you for your donation!");
+                    window.location.href = "{% url 'donate' %}";
+                } else {
+                    alert("Payment failed. Please try again.");
+                }
+            });
+        }
+    };
+    const rzp = new Razorpay(options);
+    rzp.open();
+</script>
+{% endblock %}

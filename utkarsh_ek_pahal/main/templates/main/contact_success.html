@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Message Sent{% endblock %}
+
+{% block content %}
+<section class="success-section">
+    <h1>Thank You!</h1>
+    <p>Your message has been successfully sent. We will contact you soon.</p>
+    <a href="{% url 'home' %}" class="btn-return">Return to Home</a>
+</section>
+{% endblock %}

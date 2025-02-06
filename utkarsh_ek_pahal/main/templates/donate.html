@@ -1,0 +1,38 @@
+{% comment %} {% extends 'base.html' %}
+
+{% block title %}Donate - Support Our Cause{% endblock %}
+ 
+{% block content %}
+<section class="donate-section">
+    <div class="donate-container">
+        <h2>Make a Difference</h2>
+        <p>Your generosity helps us achieve our goals to bring positive change.</p>
+        <div class="donate-options">
+            <div class="donate-card">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="donate-button">Proceed tokk Payment</button>
+                </form>
+            </div>
+            <div class="donate-card">
+                <h3>Bank Transfer</h3>
+                <p>Contribute directly via bank transfer:</p>
+                <ul>
+                    <li><strong>Bank Name:</strong> Your Bank</li>
+                    <li><strong>Account Number:</strong> 123456789</li>
+                    <li><strong>IFSC Code:</strong> BANK123</li>
+                </ul>
+            </div>
+            <div class="donate-card">
+                <h3>Cash or Cheque</h3>
+                <p>Visit our office to donate via cash or cheque:</p>
+                <address>
+                    123 NGO Street,<br>
+                    City, State, ZIP
+                </address>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% endcomment %}

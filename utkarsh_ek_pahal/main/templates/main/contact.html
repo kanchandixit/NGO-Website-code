@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - UTKARSH EK PAHAL{% endblock %}
+
+{% block content %}
+<section class="contact-us-section">
+    <div class="container">
+        <h1 class="section-title">Get in Touch</h1>
+        <p class="section-description">We'd love to hear from you! Please reach out to us through the following details or leave a message below.</p>
+
+        <div class="contact-grid">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                {% for contact in contact_details %}
+                <div class="contact-card">
+                    <h3>{{ contact.name }}</h3>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a></p>
+                    {% if contact.phone %}
+                    <p><i class="fas fa-phone"></i> {{ contact.phone }}</p>
+                    {% endif %}
+                    <p><i class="fas fa-map-marker-alt"></i> {{ contact.address }}</p>
+                    {% if contact.message %}
+                    <p><i class="fas fa-comment-dots"></i> {{ contact.message }}</p>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p>No contact information available at the moment.</p>
+                {% endfor %}
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form method="post" action="{% url 'contact_submission' %}">
+                    {% csrf_token %}
+                    
+                    <!-- Name Field -->
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    
+                    <!-- Email Field -->
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    
+                    <!-- Phone Number Field -->
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
+                    
+                    <!-- Subject Field -->
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" placeholder="Subject of Your Message" required>
+                    
+                    <!-- Preferred Contact Method -->
+                    <label for="contact-method">Preferred Contact Method:</label>
+                    <select id="contact-method" name="contact_method" required>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                    </select>
+                    
+                    <!-- Message Field -->
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock %}

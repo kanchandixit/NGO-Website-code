@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% comment %} {% block title %}Home - UTKARSH EK PAHAL{% endblock %} {% endcomment %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="slideshow-container">
+        {% for slider in hero_sliders %}
+        <div class="mySlides fade">
+            <img src="{{ slider.image.url }}" style="width:100%" alt="{{ slider.title }}">
+            <div class="hero-content">
+                <h1>{{ slider.title }}</h1>
+                <p>{{ slider.description }}</p>
+                {% if slider.button_text and slider.button_link %}
+                <a href="{{ slider.button_link }}" class="cta-button">{{ slider.button_text }}</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Dots for navigation -->
+    <br>
+    <div style="text-align:center">
+        {% for slider in hero_sliders %}
+        <span class="dot"></span>
+        {% endfor %}
+    </div>
+</section>
+
+<script>
+    let slideIndex = 0;
+    showSlides();
+    
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+    
+        // Hide all slides
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+    
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; }
+    
+        // Display current slide
+        slides[slideIndex - 1].style.display = "block";
+    
+        // Remove 'active' from all dots
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+    
+        // Activate the correct dot
+        dots[slideIndex - 1].className += " active";
+    
+        // Change slide every 4 seconds
+        setTimeout(showSlides, 4000);
+    }
+</script>
+
+
+<!-- Welcome Section -->
+<section class="welcome-section">
+    <div class="welcome-container">
+        <h1>Welcome to UTKARSH EK PAHAL</h1>
+        <p>
+            At UTKARSH EK PAHAL, we strive to create meaningful changes in the lives of underprivileged communities. 
+            From education to healthcare and empowerment programs, we are committed to building a better future for everyone.
+        </p>
+    </div>
+</section>
+
+<!-- Director's Message Section -->
+{% if directors_message %}
+<section class="directors-message">
+    <div class="directors-message-container">
+        {% if directors_message.image %}
+        <div class="director-image">
+            <img src="{{ directors_message.image.url }}" alt="Director's Image">
+        </div>
+        {% endif %}
+        <div class="message-content">
+            <h2>Message from the Director</h2>
+            <p>{{ directors_message.message_text }}</p>
+            {% if directors_message.quote %}
+            <blockquote>
+                <p>{{ directors_message.quote }}</p>
+            </blockquote>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="what-we-do">
+    <div class="container">
+        <h2>What We Do</h2>
+        <div class="focus-areas">
+            {% for area in focus_areas %}
+            <div class="focus-area">
+                {% if area.icon %}
+                <div class="focus-icon">
+                    <img src="{{ area.icon.url }}" alt="{{ area.title }}">
+                </div>
+                {% endif %}
+                <h3>{{ area.title }}</h3>
+                <p>{{ area.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="our-mission" class="mission-section">
+    <h2>{{ mission.title }}</h2>
+    <p>{{ mission.content }}</p>
+</section>
+
+<section id="cta-buttons" class="cta-section">
+    <div class="cta-container">
+        <h2>Get Involved</h2>
+        <p>Make a difference today by supporting our mission.</p>
+        <div class="cta-buttons">
+            <a href="{% url 'donate' %}" class="cta-button donate">Donate Now</a>
+            <a href="{% url 'contact' %}" class="cta-button join">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+
+{% comment %} <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let sliderContainer = document.querySelector(".slider-container");
+        let sliderItems = document.querySelectorAll(".slider-item");
+        let index = 0;
+        let totalSlides = sliderItems.length;
+        
+        function moveSlider() {
+            index++;
+            if (index >= totalSlides) {
+                index = 0; // Reset to the first slide
+            }
+            let offset = -index * 100; 
+            sliderContainer.style.transform = `translateX(${offset}%)`;
+        }
+
+        // Set automatic sliding every 4 seconds
+        setInterval(moveSlider, 4000);
+    });
+</script> {% endcomment %}
+
+
+{% endblock %}

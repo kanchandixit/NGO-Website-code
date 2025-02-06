@@ -1,0 +1,99 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}UTKARSH EK PAHAL{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'main/styles.css' %}">
+    <!-- Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>UTKARSH EK PAHAL</h1>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About Us</a></li>
+                <li><a href="{% url 'campaign_list' %}">Campaigns</a></li>
+                <li><a href="{% url 'gallery' %}">Gallery</a></li>
+                <li>  <a href="{% url 'events' %}">Events</a> </li>
+                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                <li><a href="{% url 'terms_and_conditions' %}">Terms & Conditions</a></li>
+            </ul>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/yourusername" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/yourusername" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+        <script> 
+            document.addEventListener("DOMContentLoaded", () => {
+                const messageContainer = document.getElementById("message-container");
+                if (messageContainer) {
+                    setTimeout(() => {
+                        messageContainer.style.display = "none";
+                    }, 5000); // Hide after 5 seconds
+                }
+            });            
+        </script>
+    </header>
+
+    <!-- Main Content Block -->
+    <body>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+        {% block content %}{% endblock %}
+    </body>
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <p class="contact-info">
+                Contact Us: <a href="mailto:info@utkarsh.org">info@utkarsh.org</a>
+            </p>
+            <div class="social-icons-footer">
+                <a href="https://www.instagram.com/yourusername" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/yourusername" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Slick Slider -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.slick-slider').slick({
+                autoplay: true,
+                autoplaySpeed: 3000,
+                arrows: true,
+                dots: true,
+                fade: true
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ campaign.title }} - Campaign Details{% endblock %}
+
+{% block content %}
+<section class="campaign-detail-section">
+    <div class="campaign-detail-container">
+        <div class="campaign-detail-image">
+            {% if campaign.image %}
+            <img src="{{ campaign.image.url }}" alt="{{ campaign.title }}">
+            {% else %}
+            <img src="{% static 'main/images/default_campaign.jpg' %}" alt="Default Campaign Image">
+            {% endif %}
+        </div>
+        <div class="campaign-detail-content">
+            <h1>{{ campaign.title }}</h1>
+            <p>{{ campaign.description }}</p>
+            <p><strong>Goal Amount:</strong> ₹{{ campaign.goal_amount }}</p>
+            <p><strong>Start Date:</strong> {{ campaign.start_date|date:"d M, Y" }}</p>
+            <p><strong>End Date:</strong> {{ campaign.end_date|date:"d M, Y" }}</p>
+            <div class="cta-container">
+                <a href="{% url 'donate' %}" class="cta-button">Donate Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

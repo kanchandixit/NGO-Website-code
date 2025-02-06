@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gallery - UTKARSH EK PAHAL{% endblock %}
+
+{% block content %}
+<section class="gallery-section">
+    <h1>Our Gallery</h1>
+    <p>Explore our work through images categorized by events, volunteers, and projects.</p>
+
+    <div class="gallery-container">
+        {% for category, images in gallery.items %}
+        <div class="category-section">
+            <h2>{{ category }}</h2>
+            <div class="image-grid">
+                {% for image in images %}
+                <div class="image-card">
+                    <img src="{{ image.image.url }}" alt="{{ image.title }}">
+                    <div class="image-overlay">
+                        <h3>{{ image.title }}</h3>
+                        <p>{{ image.description }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No images available in this category yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

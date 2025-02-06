@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Donate - Support Our Cause{% endblock %}
+
+{% block content %}
+<section class="donate-section">
+    <div class="donate-container">
+        <h2>Make a Difference</h2>
+        <p>Your generosity can transform lives and create meaningful change. Choose how you'd like to contribute below.</p>
+        
+        <div class="donate-options">
+            <!-- Online Payment Option -->
+            <div class="donate-card">
+                <h3>Pay Online</h3>
+                <p>
+                    Donate securely online. Enter the amount you wish to contribute, and click "Proceed to Payment."
+                </p>
+                <form method="post" action="{% url 'donate' %}">
+                    {% csrf_token %}
+                    <label for="amount" class="form-label">Amount (INR):</label>
+                    <input 
+                        type="number" 
+                        name="amount" 
+                        id="amount" 
+                        placeholder="Enter amount (e.g., 500)" 
+                        class="form-input" 
+                        min="1"
+                        required 
+                    />
+                    <button type="submit" class="donate-button">Proceed to Payment</button>
+                </form>
+            </div>
+
+            <!-- Bank Transfer Option -->
+            <div class="donate-card">
+                <h3>Offline Payment</h3>
+                <ul>
+                    <li><strong>Account Holder Name:</strong> Utkarsh Ek Pahal</li>
+                    <li><strong>Bank Name:</strong> HDFC Bank</li>
+                    <li><strong>Account Number:</strong> 123456789</li>
+                    <li><strong>IFSC Code:</strong> BANK123</li>
+                    <li><strong>Branch Address:</strong> XYZ</li>
+                </ul>
+                <p class="small-text">
+                    Please mention "Donation" in the transaction reference for identification.
+                </p>
+            </div>
+    </div>
+</section>
+{% endblock %}

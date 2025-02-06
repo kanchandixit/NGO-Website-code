@@ -1,0 +1,19 @@
+<!-- templates/admin/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'admin/css/styles.css' %}">
+</head>
+<body>
+    <h1>Welcome to the Admin Dashboard</h1>
+    <div class="dashboard-stats">
+        <p><strong>Total Campaigns:</strong> {{ total_campaigns }}</p>
+        <p><strong>Total Gallery Images:</strong> {{ total_gallery_images }}</p>
+        <p><strong>Total Events:</strong> {{ total_events }}</p>
+        <p><strong>Total Users:</strong> {{ total_users }}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Welcome to UTKARSH EK PAHAL</h1>
+<div id="sliders">
+    {% for slider in sliders %}
+        <div>
+            <h2>{{ slider.title }}</h2>
+            <p>{{ slider.description }}</p>
+            <img src="{{ slider.image.url }}" alt="{{ slider.title }}">
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
